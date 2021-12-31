@@ -400,8 +400,7 @@ end
 end
 
 -- Launching a frame
-devmode = true
-version = "Dev. 1.5"
+devmode = "Github release!"
 night = 1
 savepath = "savefile.txt"
 freddyinmenu = false
