@@ -4,11 +4,6 @@ j2_assets("load", "effects")
 
 while true do
 
-	--[[static1 = image.load("assets/png/gui/static/1.png")
-	static1_re = image.load("assets/png/gui/static/1.png")
-	static2 = image.load("assets/png/gui/static/2.png")
-	static3 = image.load("assets/png/gui/static/3.png")]]
-
 	-- Playing menu theme
 	if sound.endstream(menumusic) == true then
 		sound.play(menumusic)
