@@ -418,9 +418,9 @@ elseif mode == "nil" then
     scroll = nil
     directionlook = nil
     cameraxy = nil
-    whichtaken nil
-    dirchange =nil
-    cameraname nil
+    whichtaken = nil
+    dirchange = nil
+    cameraname =  nil
     cnx = nil
     extrasection = nil
     extraname = nil
@@ -522,10 +522,10 @@ end
 night = 1
 --[[savepath = "savefile.txt"
 freddyinmenu = false]]
-j2_assets("load", "effects")
-j2_assets("load", "menu")
-j2_assets("load", "static")
-dofile("scripts/menu.lua")
+j2_assets("load", "start")
+--[[j2_assets("load", "menu")
+j2_assets("load", "static")]]
+dofile("scripts/start.lua")
 --[[j2_assets("load", "effects")
 j2_assets("load", "whatnight")
 j2_assets("load", "gameprocess")
