@@ -10,6 +10,7 @@ while true do
 	htp_img:blit(0,0)
 	screen.flip()
 	if buttons.cross then
+		j2_assets("nil", "htp")
 		j2_assets("load", "whatnight")
 		dofile("scripts/whatnight.lua")
 	end

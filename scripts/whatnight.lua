@@ -23,6 +23,9 @@ while true do
 		if whatnight_tr[1] > 0 then
 			whatnight_tr[1] = whatnight_tr[1] - 2
 		elseif whatnight_tr[1] < 0 then
+			j2_assets("nil", "whatnight")
+			j2_assets("load", "gameprocess")
+			j2_assets("load", "ai")
 			dofile("scripts/gameprocessre.lua")
 		end
 	end

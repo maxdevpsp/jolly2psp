@@ -283,6 +283,8 @@ elseif mode == "nil" then
         logo_menu = nil
         wheel = nil
 
+        menumusic = nil
+
     elseif frame == "menu" then
         -- Pictures
         bgjolly = nil
@@ -291,11 +293,34 @@ elseif mode == "nil" then
 	    bgjolly2 = nil
 	    bgjolly3 = nil
 	    bgjolly4 = nil
-	    --logo_menu = image.load("assets/png/title/logo2.png")
-	    logo_menu2 = nil
-	    --wheel = image.load("assets/png/title/wheel.png")
+
+	    bgjolly1r = nil
+	    bgjolly1tr = nil
+	    bgjolly2r = nil
+	    bgjolly3r = nil
+	    bgjolly4r = nil
+
+        -- Ready for Fedie?
+	    bgfr1 = nil
+	    bgfr1t = nil
+	    bgfr2 = nil
+	    bgfr3 = nil
+	    bgfr4 = nil
+
+	    logo_menu = nil
 	    pointer_menu = nil
+        pointer_s = nil
 	    text_m = nil
+
+        statictimer = nil
+        bgtimer = nil
+        bgdecide = nil
+        bgtrans = nil
+        bgwait = nil
+        bgchange = nil
+        bgstate = nil
+
+        menumusic = nil
 
     elseif frame == "gameprocess" then
             -- The Office
@@ -382,6 +407,46 @@ elseif mode == "nil" then
     camera9p2 = nil
     arrows = nil 
 
+    -- TV Static
+    tvs_1 = nil
+    tvs_2 = nil
+    tvs_3 = nil
+    tvs_4 = nil
+    tvs_5 = nil
+    tvs_base = nil
+
+    scroll = nil
+    directionlook = nil
+    cameraxy = nil
+    whichtaken nil
+    dirchange =nil
+    cameraname nil
+    cnx = nil
+    extrasection = nil
+    extraname = nil
+    animswitch = nil
+    timera = nil
+    energyamount = nil
+    shockusage = nil
+    shockbgtrans = nil
+    eatimer = nil
+    barpos = nil
+    nightticks = nil
+    nightminutes = nil
+    nighthours = nil
+    nightvisualminutes = nil
+    nightvisualhours = nil
+    nightvd = nil
+    nightvtt = nil
+    gas_stability = nil
+    gas_leak_timer = nil
+    gas_leak_random = nil
+    gas_leak_which = nil
+    gas_fix_toggle = nil
+    isUp = nil
+    tvs_stats = nil
+    mappospos = nil
+
     elseif frame == "static" then
         static1 = nil
 	    static1_re = nil
@@ -396,6 +461,51 @@ elseif mode == "nil" then
 
     elseif frame == "htp" then
         htp_img = nil
+
+    elseif frame == "ai" then
+        ai = nil
+        presets = nil
+        path = nil
+        camerapos = nil
+        iitimer = nil
+    
+    elseif frame == "whatnight" then
+        whatnight_txt = nil
+        office1 = nil
+        menumusic = nil
+        nightnum = nil
+        nightnum_1 = nil
+        nightnum_2 = nil
+        nightnum_3 = nil
+        nightnum_4 = nil
+        nightnum_5 = nil
+        nightnum_6 = nil
+        nightnum_7 = nil
+        whatnight_tr = nil
+        whatnight_timer = nil
+
+    elseif frame == "extras" then
+        bgEX = nil
+        animEX = nil
+        animEXre = nil
+        jollyEX = nil
+        freddyEX = nil
+        chicaEX = nil
+        bonnieEX = nil
+        georgeEX = nil
+
+        extrasection = nil
+        extraname = nil
+
+    elseif frame == "loading" then
+        loadscreen = nil
+    elseif frame == "gameover" then
+        hanoob = nil
+
+    elseif frame == "settings" then
+        lang_visual = nil
+        freddy_visual = nil
+
 
     --[[ If the argument is missing
     else
