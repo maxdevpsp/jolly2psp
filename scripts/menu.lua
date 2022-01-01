@@ -147,6 +147,7 @@ while true do
 	if point == 5 then
 		pointer_menu:blit(0,145)
 		if buttons.cross then
+			j2_assets("load", "settings")
 			dofile("scripts/settings.lua")
 		end
 	end

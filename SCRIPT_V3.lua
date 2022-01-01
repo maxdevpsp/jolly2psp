@@ -11,6 +11,9 @@
 require "lib.savefile"
 require "lib.gamefeatures"
 
+-- Setting file
+require "setting"
+
 function j2_assets(mode, frame)
     if mode == "load" then
     if frame == "start" then
@@ -56,6 +59,7 @@ function j2_assets(mode, frame)
 	    logo_menu2 = image.load("assets/png/title/logo3.png")
 	    --wheel = image.load("assets/png/title/wheel.png")
 	    pointer_menu = image.load("assets/png/title/pointer.png")
+        pointer_s = image.load("assets/png/gui/pointer.png")
 	    text_m = image.load("assets/png/title/yesimlazy.png")
 
         statictimer = 0
@@ -66,7 +70,7 @@ function j2_assets(mode, frame)
         bgchange = 0
         bgstate = 0
 
-        --menumusic = sound.load("assets/wav/risenc.titlesong.wav")
+        menumusic = sound.load("assets/wav/risenc.titlesong.wav")
 
     elseif frame == "gameprocess" then
         -- The Office
@@ -255,6 +259,10 @@ function j2_assets(mode, frame)
     elseif frame == "gameover" then
         hanoob = image.load("assets/png/cutscenes/gameover/ded.png")
 
+    elseif frame == "settings" then
+        lang_visual = ""
+        freddy_visual = ""
+
     --[[ If the argument is missing
     else
         return false]]
@@ -400,12 +408,14 @@ end
 end
 
 -- Launching a frame
-devmode = "Github release!"
+--devmode = true
 night = 1
-savepath = "savefile.txt"
-freddyinmenu = false
-j2_assets("load", "start")
-dofile("scripts/start.lua")
+--[[savepath = "savefile.txt"
+freddyinmenu = false]]
+j2_assets("load", "effects")
+j2_assets("load", "menu")
+j2_assets("load", "static")
+dofile("scripts/menu.lua")
 --[[j2_assets("load", "effects")
 j2_assets("load", "whatnight")
 j2_assets("load", "gameprocess")
