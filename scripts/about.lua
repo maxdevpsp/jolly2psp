@@ -20,7 +20,7 @@ while true do
     screen.print(40,40,"JOLLY 2 PSP\n \nVersion: "..version.."\nDev-mode: "..tostring(devmode).."\n \nPort developed by maxdev.\nOriginal game by IvanG.\nThanks for playing!\n \n \nPress CIRCLE to go back.")
 
     if buttons.circle then
-        dofile("scripts/menu.lua")
+        dofile("scripts/settings.lua")
     end
 
     screen.flip()

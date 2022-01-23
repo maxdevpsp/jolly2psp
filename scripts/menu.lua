@@ -23,15 +23,17 @@ while true do
 	end
 	static1:blit(0,0, 200)
 	bgjolly:blit(120,0)
-	--text_m:blit(0,0)
-	screen.print(0,0,"Static frame: "..statictimer,0.2)
+
+	if devmode == true then
+		screen.print(0,0,"Static frame: "..statictimer,0.4)
+	end
 	logo_menu2:blit(20,240)
 
 	screen.print(40,60,"New Game")
 	screen.print(40,80,"Continue")
-	screen.print(40,100,"Options")
-	screen.print(40,120,"About")
-	screen.print(40,140,"Quit")
+	screen.print(40,100,"")
+	screen.print(40,120,"Options")
+	screen.print(40,140,"Exit")
 
 	-- Music and sounds (experemental)
 	if sound.endstream(menumusic) == true then
@@ -133,22 +135,22 @@ while true do
 	end
 	if point == 3 then
 		pointer_menu:blit(0,105)
-		if buttons.cross then
-			dofile("scripts/customnight.lua")
-		end
+		--[[if buttons.cross then
+			j2_assets("load", "info")
+			dofile("scripts/settings.lua")
+		end]]
 	end
 	if point == 4 then
 		pointer_menu:blit(0,125)
 		if buttons.cross then
 			j2_assets("load", "info")
-			dofile("scripts/about.lua")
+			dofile("scripts/settings.lua")
 		end
 	end
 	if point == 5 then
 		pointer_menu:blit(0,145)
 		if buttons.cross then
-			j2_assets("load", "settings")
-			dofile("scripts/settings.lua")
+			os.exit()
 		end
 	end
 	if point == 6 then

@@ -518,17 +518,11 @@ end
 end
 
 -- Launching a frame
---devmode = true
+version = "PR-02"
 night = 1
---[[savepath = "savefile.txt"
-freddyinmenu = false]]
 j2_assets("load", "start")
 --[[j2_assets("load", "menu")
-j2_assets("load", "static")]]
+j2_assets("load", "static")
+j2_assets("load", "effects")
+j2_assets("load", "info")]]
 dofile("scripts/start.lua")
---[[j2_assets("load", "effects")
-j2_assets("load", "whatnight")
-j2_assets("load", "gameprocess")
-j2_assets("load", "ai")]]
---j2_assets("load", "gameover")
---dofile("scripts/gameover.lua")

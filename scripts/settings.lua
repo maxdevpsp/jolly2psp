@@ -37,12 +37,15 @@ while true do
 	end
 
 	screen.print(15,20,"Settings", 1.2)
+	screen.print(18,35,"NOTE: Game settings can ONLY be changed in setting.lua!", 0.5)
 
 	screen.print(40,60,"Language: " .. lang_visual)
 	screen.print(40,80,"Freddy in Menu: " .. tostring(freddy_visual))
-	screen.print(40,100,"PLACEHOLDER SETTING 3: ")
-	screen.print(40,120,"PLACEHOLDER SETTING 4: ")
-	screen.print(40,140,"About")
+	screen.print(40,100,"Devmode: " .. tostring(devmode))
+	--[[screen.print(40,100,"PLACEHOLDER SETTING 3: ")
+	screen.print(40,120,"PLACEHOLDER SETTING 4: ")]]
+	screen.print(40,180,"Credits")
+	screen.print(40,200,"About")
 
 	if buttons.up then
 		point = point - 1
@@ -52,45 +55,24 @@ while true do
 	end
 
 	if point == 1 then
-		pointer_s:blit(20,60)
+		pointer_s:blit(20,180)
 		if buttons.cross then
-			onefnaf_save(savepath, 1)
-			j2_assets("load", "htp")
-			dofile("scripts/howtoplay.lua")
+			dofile("scripts/credits.lua")
 		end
 	end
 	if point == 2 then
-		pointer_s:blit(20,80)
+		pointer_s:blit(20,200)
 		night = onefnaf_load(savepath)
 		--screen.print(40,80,"         "..night)
 		if buttons.cross then
-			dofile("scripts/whatnight.lua")
-		end
-	end
-	if point == 3 then
-		pointer_s:blit(20,100)
-		if buttons.cross then
-			dofile("scripts/customnight.lua")
-		end
-	end
-	if point == 4 then
-		pointer_s:blit(20,120)
-		if buttons.cross then
-			j2_assets("load", "info")
 			dofile("scripts/about.lua")
 		end
 	end
-	if point == 5 then
-		pointer_s:blit(20,140)
-		if buttons.cross then
-			dofile("scripts/settings.lua")
-		end
-	end
-	if point == 6 then
+	if point == 3 then
 		point = 1
 	end
 	if point == 0 then
-		point = 5
+		point = 2
 	end
 
 	if buttons.circle then
