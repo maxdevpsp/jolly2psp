@@ -580,7 +580,7 @@ while true do
 
     -- Interaction with gas
     if directionlook == 1 and animswitch[3] == false then
-        screen.print(240, 130, "Placeholder", 1, white, black, __ACENTER)
+        screen.print(240, 130, "Gas Stability:", 1, white, black, __ACENTER)
         screen.print(240, 150, gas_stability .. "%", 1, white, black, __ACENTER)
     end
 

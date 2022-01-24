@@ -4,6 +4,8 @@
     ---
 
     "language" contains an ID of the language you're using for the game.
+    However, there's no language support in-game right now...
+    ... so this setting is useless.
 
     IDs:
     0 - English

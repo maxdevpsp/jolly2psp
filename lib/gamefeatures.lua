@@ -18,3 +18,29 @@ function onefnaf_fade(mode, type, timeIn, timeOut, speedTime, offsetTime)
         end
     end
 end
+
+function onefnaf_drawcentered(y, imagetoblit, xoffset, opacity)
+    local img_tob = imagetoblit
+    local img_xof = xoffset
+    if img_xof == nil then
+        img_xof = 0
+    end
+    local img_x = 240 - (image.getw(img_tob) / 2)
+    local img_y = y
+    local img_op = opacity
+    if img_op == nil then
+        img_op = 255
+    end
+
+    img_tob:blit(img_x + img_xof, img_y, img_op)
+end
+
+function onefnaf_printcentered(y, texttoblit, size, xoffset)
+    local txt_tob = texttoblit
+    local txt_xof = xoffset
+    local txt_x = 240 + txt_xof
+    local txt_y = y
+    local txt_size = size
+
+    screen.print(txt_x, txt_y, txt_tob, txt_size)
+end

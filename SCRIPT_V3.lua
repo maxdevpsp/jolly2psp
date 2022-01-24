@@ -266,6 +266,10 @@ function j2_assets(mode, frame)
         lang_visual = ""
         freddy_visual = ""
 
+    elseif frame == "gui" then
+        but_cross = image.load("assets/png/gui/buttons/cross_upd_v3.png")
+        but_circle = image.load("assets/png/gui/buttons/circle_upd_v3.png")
+
     --[[ If the argument is missing
     else
         return false]]
@@ -509,10 +513,9 @@ elseif mode == "nil" then
         lang_visual = nil
         freddy_visual = nil
 
-
-    --[[ If the argument is missing
-    else
-        return false]]
+    elseif frame == "gui" then
+        but_cross = nil
+        but_circle = nil
 
     end
 end
@@ -524,8 +527,9 @@ end
 version = "PR-02"
 night = 1
 j2_assets("load", "start")
---[[j2_assets("load", "menu")
+j2_assets("load", "gui")
+j2_assets("load", "menu")
 j2_assets("load", "static")
 j2_assets("load", "effects")
-j2_assets("load", "info")]]
-dofile("scripts/start.lua")
+j2_assets("load", "info")
+dofile("scripts/settings.lua")
