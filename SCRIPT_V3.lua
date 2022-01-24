@@ -14,6 +14,9 @@ require "lib.gamefeatures"
 -- Setting file
 require "setting"
 
+-- Language file
+--require "assets.language.eng"
+
 function j2_assets(mode, frame)
     if mode == "load" then
     if frame == "start" then
