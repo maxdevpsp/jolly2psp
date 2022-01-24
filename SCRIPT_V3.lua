@@ -527,9 +527,9 @@ end
 version = "PR-02"
 night = 1
 j2_assets("load", "start")
-j2_assets("load", "gui")
+--[[j2_assets("load", "gui")
 j2_assets("load", "menu")
 j2_assets("load", "static")
 j2_assets("load", "effects")
-j2_assets("load", "info")
-dofile("scripts/settings.lua")
+j2_assets("load", "info")]]
+dofile("scripts/start.lua")
