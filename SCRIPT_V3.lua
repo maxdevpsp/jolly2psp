@@ -524,7 +524,7 @@ end
 end
 
 -- Launching a frame
-version = "PR-02"
+version = "PR-03.1"
 night = 1
 j2_assets("load", "start")
 --[[j2_assets("load", "gui")
