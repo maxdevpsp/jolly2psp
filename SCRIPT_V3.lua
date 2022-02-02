@@ -17,6 +17,9 @@ require "setting"
 -- Language file
 --require "assets.language.eng"
 
+-- Fonts
+screenmatrix_fnt = font.load("ScreenMatrix.pgf")
+
 function j2_assets(mode, frame)
     if mode == "load" then
     if frame == "start" then
@@ -270,6 +273,11 @@ function j2_assets(mode, frame)
         but_cross = image.load("assets/png/gui/buttons/cross_upd_v3.png")
         but_circle = image.load("assets/png/gui/buttons/circle_upd_v3.png")
 
+    elseif frame == "6am" then
+        time_txt = "5:59"
+        sleep_txt = "shift's over"
+        frame_6am_timer = 0
+
     --[[ If the argument is missing
     else
         return false]]
@@ -517,6 +525,11 @@ elseif mode == "nil" then
         but_cross = nil
         but_circle = nil
 
+    elseif frame == "6am" then
+        time_txt = nil
+        sleep_txt = nil
+        frame_6am_timer = nil
+
     end
 end
 
@@ -526,10 +539,10 @@ end
 -- Launching a frame
 version = "PR-03.1"
 night = 1
-j2_assets("load", "start")
+j2_assets("load", "6am")
 --[[j2_assets("load", "gui")
 j2_assets("load", "menu")
 j2_assets("load", "static")
 j2_assets("load", "effects")
 j2_assets("load", "info")]]
-dofile("scripts/start.lua")
+dofile("scripts/6am.lua")

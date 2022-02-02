@@ -38,9 +38,14 @@ end
 function onefnaf_printcentered(y, texttoblit, size, xoffset)
     local txt_tob = texttoblit
     local txt_xof = xoffset
+    if txt_xof == nil then
+        txt_xof = 0
+    end
     local txt_x = 240 + txt_xof
     local txt_y = y
     local txt_size = size
+    white = color.new(255, 255, 255)
+    black = color.new(0, 0, 0)
 
-    screen.print(txt_x, txt_y, txt_tob, txt_size)
+    screen.print(txt_x, txt_y, txt_tob, txt_size, white, black, __ACENTER)
 end
