@@ -9,7 +9,7 @@ while true do
     frame_6am_timer = frame_6am_timer + 0.5
 
     -- 6 AM Anim
-    if frame_6am_timer == 1 then
+    if frame_6am_timer == 10 then
         time_txt = "5:5 "
     elseif frame_6am_timer == 20 then
         time_txt = "5:  "
@@ -28,7 +28,7 @@ while true do
     end
 
     -- Sleep Anim
-    if frame_6am_timer == 5 then
+    if frame_6am_timer == 10 then
         sleep_txt = "shift's ov  "
     elseif frame_6am_timer == 15 then
         sleep_txt = "shift's     "
