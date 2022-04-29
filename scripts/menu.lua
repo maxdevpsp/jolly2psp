@@ -13,20 +13,19 @@ while true do
 		statictimer = 0
 	end
 	if statictimer == 0 then
-		static1 = static1_re
+		static_base = static1
 	end
 	if statictimer == 1 then
-		static1 = static2
+		static_base = static2
 	end
 	if statictimer == 2 then
-		static1 = static3
+		static_base = static3
 	end
-	static1:blit(0,0, 200)
+	static_base:blit(0,0, 200)
 	bgjolly:blit(120,0)
 
-	if devmode == true then
-		screen.print(0,0,"Static frame: "..statictimer,0.4)
-	end
+	debug_print()
+	
 	logo_menu2:blit(20,240)
 
 	screen.print(40,60,"New Game")

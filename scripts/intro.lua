@@ -1,7 +1,3 @@
-j2_assets("load", "intro")
-j2_assets("load", "static")
-j2_assets("load", "effects")
-
 while true do
 
 	-- Playing menu theme
@@ -20,17 +16,17 @@ while true do
 		intro_statictimer = 0
 	end
 	if intro_statictimer == 0 then
-		static1 = static1_re
+		static_base = static1
 	end
 	if intro_statictimer == 1 then
-		static1 = static2
+		static_base = static2
 	end
 	if intro_statictimer == 2 then
-		static1 = static3
+		static_base = static3
 	end
 
 	-- Drawing static.
-	static1:blit(0,0)
+	static_base:blit(0,0)
 
 	-- Other
 	logo_menu:blit(90,110,transp[1])
@@ -43,9 +39,10 @@ while true do
 		transp[1] = transp[1] + 1
 	end
 	if intro_frametimer == 400 then
-		j2_assets("nil", "intro")
-		dofile("scripts/menu.lua")
+		j2_jump(3, true, true)
 	end
+
+	debug_print()
 
 	-- Black fade at the start
 	blackfullscreen:blit(0, 0, blackfstransp)

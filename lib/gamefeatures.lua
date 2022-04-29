@@ -49,3 +49,11 @@ function onefnaf_printcentered(y, texttoblit, size, xoffset)
 
     screen.print(txt_x, txt_y, txt_tob, txt_size, white, black, __ACENTER)
 end
+
+function debug_print()
+    if devmode == true then
+		screen.print(0, 0, "Main debug:\n \nRAM: " .. os.ram() .. "/" .. os.totalram() .. "\nFPS: " .. screen.fps(), 0.6)
+	else
+        screen.print(0, 0, "ENABLE DEVMODE FIRST")
+    end
+end

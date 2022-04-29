@@ -12,15 +12,15 @@ while true do
 		statictimer = 0
 	end
 	if statictimer == 0 then
-		static1 = static1_re
+		static_base = static1
 	end
 	if statictimer == 1 then
-		static1 = static2
+		static_base = static2
 	end
 	if statictimer == 2 then
-		static1 = static3
+		static_base = static3
 	end
-	static1:blit(0,0, 200)
+	static_base:blit(0,0, 200)
 
     screen.print(240,80,"v. "..version.."\n \nPort is by maxdev.\nOriginal game by IvanG.\n \n https://gamejolt.com/games/jolly-2/197334 \n \nThanks for playing!", 0.8, white, black, __ACENTER)
 	
