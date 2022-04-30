@@ -1,5 +1,3 @@
--- a menu screen.
-j2_assets("load", "menu")
 -- variables
 point = 1
 
@@ -120,8 +118,7 @@ while true do
 		pointer_menu:blit(0,65)
 		if buttons.cross then
 			onefnaf_save(savepath, 1)
-			j2_assets("load", "htp")
-			dofile("scripts/howtoplay.lua")
+			j2_jump(5)
 		end
 	end
 	if point == 2 then

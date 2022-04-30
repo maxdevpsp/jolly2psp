@@ -57,3 +57,20 @@ function debug_print()
         screen.print(0, 0, "ENABLE DEVMODE FIRST")
     end
 end
+
+function animation_play(firstpic, secondpic, firsthalf, secondhalf, speed)
+    local animtimer = 0
+    local animframe = 0
+    local currentframe = 1
+
+    animtimer = animtimer + 1
+
+    if animtimer == speed then
+        if firsthalf[currentframe] ~= false then
+            currentframe = currentframe + 1
+        end
+        animtimer = 0
+    end
+
+    firstpic = firsthalf[currentframe]
+end
