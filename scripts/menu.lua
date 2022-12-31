@@ -1,159 +1,121 @@
--- variables
-point = 1
+-- Getting the night value.
+night = simpleol.loadFromFile(config.savepath)
+nightNumber = tonumber(night)
 
 while true do
+	-- Buttons input.
 	buttons.read()
-	-- Static animation
-	if statictimer < 3 then
-		statictimer = statictimer + 0.5
-	end
-	if statictimer == 3 then
-		statictimer = 0
-	end
-	if statictimer == 0 then
-		static_base = static1
-	end
-	if statictimer == 1 then
-		static_base = static2
-	end
-	if statictimer == 2 then
-		static_base = static3
-	end
-	static_base:blit(0,0, 200)
-	bgjolly:blit(120,0)
 
-	debug_print()
+	-- Playing the static animation.
+	j2.playStatic()
+
+	-- Drawing the Menu Character.
+	menuChrAnim.chr[menuChrAnim.acting.currentChr][menuChrAnim.acting.twistNum]:blit(120,0)
+
+	-- Debug printing.
+	simpleol.showDebug()
 	
+	-- Drawing the menu logo.
 	logo_menu2:blit(20,240)
 
-	screen.print(40,60,"New Game")
-	screen.print(40,80,"Continue")
-	screen.print(40,100,"")
-	screen.print(40,120,"Options")
-	screen.print(40,140,"Exit")
+	-- Menu categories.
+	screen.print(40, 60, langpack.menucategories[1]) -- New Game
+	screen.print(40, 80, langpack.menucategories[2]) -- Continue
 
-	-- Music and sounds (experemental)
-	if sound.endstream(menumusic) == true then
+	if nightNumber > 4 then
+		screen.print(40, 100, langpack.menucategories[3]) -- Night 6
+		screen.print(40, 120, langpack.menucategories[4]) -- Custom Night
+		screen.print(40, 140, langpack.menucategories[5]) -- Extras
+
+		screen.print(40, 160, langpack.menucategories[6]) -- Options
+		screen.print(40, 180, langpack.menucategories[7]) -- Exit
+	else
+		screen.print(40, 100, langpack.menucategories[6]) -- Options
+		screen.print(40, 120, langpack.menucategories[7]) -- Exit
+	end
+
+	-- Playing the menu music.
+	if sound.endstream(menumusic) then
 		sound.play(menumusic)
 	end
-	-- BG Animation
-	if freddyinmenu == true then
-	if bgchange < 500 then
-		bgchange = bgchange + 1
-	end
-	if bgchange == 500 then
-		bgstate = bgstate + 1
-		whitefstransp = 255
-		bgchange = 0
-	end
-	if bgstate == 0 then
-		bgjolly1 = bgjolly1r
-		bgjolly1t = bgjolly1tr
-		bgjolly2 = bgjolly2r
-		bgjolly3 = bgjolly3r
-		bgjolly4 = bgjolly4r
-	elseif bgstate == 1 then
-		bgjolly1 = bgfr1
-		bgjolly1t = bgfr1t
-		bgjolly2 = bgfr2
-		bgjolly3 = bgfr3
-		bgjolly4 = bgfr4
-	elseif bgstate == 2 then
-		bgstate = 0
-	end
+
+	-- BG Animation and all related stuff.
+	if config.menuChrAmount > 1 then
+		menuChrAnim.acting.switchTimer += 1
+
+		if menuChrAnim.acting.switchTimer == 500 then
+			if menuChrAnim.config.switchMode == 0 then -- List-like switch, from one to another
+				menuChrAnim.acting.currentChr += 1
+			elseif menuChrAnim.config.switchMode == 1 then -- Random switch, picks a random number
+				menuChrAnim.acting.currentChr = math.random(config.menuChrAmount)
+			end
+			whitefstransp = 255
+			menuChrAnim.acting.switchTimer = 0
+		end
+		if menuChrAnim.acting.currentChr == config.menuChrAmount then
+			menuChrAnim.acting.currentChr = 0
+		end
 	end
 
-	if bgtimer < 60 then
-		bgtimer = bgtimer + 1
+	menuChrAnim.acting.twistTimer += 1
+
+	if menuChrAnim.acting.twistTimer == 60 then
+		menuChrAnim.acting.twistNum = math.random(#menuChrAnim.chr[menuChrAnim.acting.currentChr])
+		menuChrAnim.acting.twistTimer = 0
 	end
-	if bgtimer == 60 then
-		bgtimer = 0
-		bgdecide = math.random(5)
+
+	screen.print(0, 100, bgtimer.. "\n" .. bgdecide)
+	
+	-- Interacting with menu categories.
+	if buttons.up then -- Scroll up.
+		menuChosen -= 1
 	end
-	if bgdecide == 0 then
-		bgjolly = bgjolly1
-	elseif bgdecide == 1 then
-		bgjolly = bgjolly1
-		bgwait[1] = bgwait[1] + 1
-		if bgwait[1] == 5 then
-			bgdecide = 0
-			bgwait[1] = 0
-		end
-	elseif bgdecide == 2 then
-		bgjolly = bgjolly1t
-		bgwait[2] = bgwait[2] + 1
-		if bgwait[2] == 5 then
-			bgdecide = 0
-			bgwait[2] = 0
-		end
-	elseif bgdecide == 3 then
-		bgjolly = bgjolly2
-		bgwait[3] = bgwait[3] + 1
-		if bgwait[3] == 5 then
-			bgdecide = 0
-			bgwait[3] = 0
-		end
-	elseif bgdecide == 4 then
-		bgjolly = bgjolly3
-		bgwait[4] = bgwait[4] + 1
-		if bgwait[4] == 5 then
-			bgdecide = 0
-			bgwait[4] = 0
-		end
-	elseif bgdecide == 5 then
-		bgjolly = bgjolly4
-		bgwait[5] = bgwait[5] + 1
-		if bgwait[5] == 5 then
-			bgdecide = 0
-			bgwait[5] = 0
-		end
+	if buttons.down then -- Scroll down.
+		menuChosen += 1
 	end
-	if buttons.up then
-		point = point - 1
-	end
-	if buttons.down then
-		point = point + 1
-	end
-	if point == 1 then
-		pointer_menu:blit(0,65)
+
+	if menuChosen == 1 then -- New Game
 		if buttons.cross then
-			onefnaf_save(savepath, 1)
+			simpleol.saveIntoFile(config.savepath, 1)
 			j2_jump(5)
 		end
-	end
-	if point == 2 then
-		pointer_menu:blit(0,85)
-		night = onefnaf_load(savepath)
-		screen.print(40,80,"         "..night)
+	elseif menuChosen == 2 then -- Continue
+		night = simpleol.loadFromFile(config.savepath)
+		screen.print(140, 80, night)
 		if buttons.cross then
-			dofile("scripts/whatnight.lua")
+			j2_jump(6)
 		end
-	end
-	if point == 3 then
-		pointer_menu:blit(0,105)
+	elseif menuChosen == 3 then
 		--[[if buttons.cross then
 			j2_assets("load", "info")
 			dofile("scripts/settings.lua")
 		end]]
-	end
-	if point == 4 then
-		pointer_menu:blit(0,125)
+	elseif menuChosen == 4 then
 		if buttons.cross then
 			j2_assets("load", "info")
 			dofile("scripts/settings.lua")
 		end
-	end
-	if point == 5 then
-		pointer_menu:blit(0,145)
+	elseif menuChosen == 5 then
 		if buttons.cross then
 			os.exit()
 		end
 	end
-	if point == 6 then
-		point = 1
+
+	pointerY = 65 + (20 * (menuChosen - 1))
+	pointer_menu:blit(0, pointerY)
+
+	if menuChosen == 8 and nightNumber > 5 then
+		menuChosen = 1
 	end
-	if point == 0 then
-		point = 5
+
+	if menuChosen == 5 and nightNumber < 5 then
+		menuChosen = 1
+	elseif menuChosen == 0 then
+		if nightNumber > 5 then
+			menuChosen = 7
+		else
+			menuChosen = 4
+		end
 	end
 
 	-- White fade at the start

@@ -22,7 +22,7 @@ while true do
 	end
 	static_base:blit(0,0, 200)
 
-    screen.print(240,80,"v. "..version.."\n \nPort is by maxdev.\nOriginal game by IvanG.\n \n https://gamejolt.com/games/jolly-2/197334 \n \nThanks for playing!", 0.8, white, black, __ACENTER)
+    screen.print(240,80,"v. "..version.."\n \nPort is made by maxdev.\nOriginal game by IvanG.\n \n https://gamejolt.com/games/jolly-2/197334 \n \nThanks for playing!", 0.8, white, black, __ACENTER)
 	
 	onefnaf_drawcentered(40, logo_menu2)
 	onefnaf_drawcentered(230, but_circle, -45)

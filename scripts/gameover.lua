@@ -1,7 +1,11 @@
 while true do
-	hanoob:blit(0, 0)
+	buttons.read()
+
+	simpleol.screenPrint(0, 0, 136, "Game Over!\nThis screen will be remade soon eventually.\n\nPress CROSS to quit")
+
 	if buttons.cross then
 		dofile("scripts/menu.lua")
 	end
+
 	screen.flip()
 end

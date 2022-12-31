@@ -1,13 +1,28 @@
 while true do
+	-- Buttons input.
 	buttons.read()
-	j2_init()
+
+	-- Basic colors load.
+	simpleol.init()
+
+	-- Drawing the background.
 	startscreen:blit(0, 0)
-	logo_menu2:blit(158,40)
-	screen.print(245,80,"You're playing JOLLY 2 PSP.\nThe game contains flashing lights, \njumpscares and loud sounds.\nOriginal game is made by IvanG.\nThe port is made by maxdev.\nGood luck!",0.8, white, black, __ACENTER)
-	screen.print(245,230,"Press X to continue.",0.8, white, black, __ACENTER)
-	debug_print()
-	screen.flip()
-	if buttons.cross then
+
+	-- Drawing the port's logo.
+	simpleol.screenBlit(1, 0, 20, logo_menu2)
+
+	-- Disclaimers.
+	simpleol.screenPrint(1, 5, 85, langpack.startinfo[1], 1)
+	simpleol.screenPrint(1, 0, 120, langpack.startinfo[2], 0.6)
+	simpleol.screenPrint(1, 0, 230, langpack.startconfirm[1] .. "     " .. langpack.startconfirm[2], 0.8)
+	but_cross:blit(langpack.startconfirm[3], langpack.startconfirm[4])
+
+	simpleol.showDebug()
+
+	if buttons.cross then -- Going to the menu
 		j2_jump(2, true, true)
 	end
+
+	-- Flipping the screen.
+	screen.flip()
 end

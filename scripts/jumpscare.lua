@@ -1,163 +1,54 @@
-_G.killed = 1
-
-subject = image.load("assets/png/cutscenes/jumpscares/jolly/jolly1.png")
-
 while true do
-	buttons.read()
-	jstimer = jstimer + 1
-	if jstimer == 5 then
-		jsframe = jsframe + 1
-		jstimer = 0
-	end
+    buttons.read()
 
-	subjectbg:blit(58,0)
-	subject:blit(58,0)
+    -- Loading basic colors
+    simpleol.init()
 
-	if jsframe == 1 then
-		if _G.killed == 1 then
-			subject = jollyjs1
-		end
-		if _G.killed == 2 then
-			subject = image.load("assets/png/cutscenes/jumpscares/bonnie/1.png")
-		end
-		if _G.killed == 3 then
-			subject = image.load("assets/png/cutscenes/jumpscares/chica/1.png")
-		end
-		if _G.killed == 4 then
-			subject = image.load("assets/png/cutscenes/jumpscares/foxy/1.png")
-		end
-	end
-	if jsframe == 2 then
-		if _G.killed == 1 then
-			subject = jollyjs2
-		end
-		if _G.killed == 2 then
-			subject = image.load("assets/png/cutscenes/jumpscares/bonnie/2.png")
-		end
-		if _G.killed == 3 then
-			subject = image.load("assets/png/cutscenes/jumpscares/chica/2.png")
-		end
-		if _G.killed == 4 then
-			subject = image.load("assets/png/cutscenes/jumpscares/foxy/2.png")
-		end
-	end
-	if jsframe == 3 then
-		if _G.killed == 1 then
-			subject = jollyjs3
-		end
-		if _G.killed == 2 then
-			subject = image.load("assets/png/cutscenes/jumpscares/bonnie/2.png")
-		end
-		if _G.killed == 3 then
-			subject = image.load("assets/png/cutscenes/jumpscares/chica/2.png")
-		end
-		if _G.killed == 4 then
-			subject = image.load("assets/png/cutscenes/jumpscares/foxy/2.png")
-		end
-	end
-	if jsframe == 4 then
-		if _G.killed == 1 then
-			subject = jollyjs4
-		end
-		if _G.killed == 2 then
-			subject = image.load("assets/png/cutscenes/jumpscares/bonnie/2.png")
-		end
-		if _G.killed == 3 then
-			subject = image.load("assets/png/cutscenes/jumpscares/chica/2.png")
-		end
-		if _G.killed == 4 then
-			subject = image.load("assets/png/cutscenes/jumpscares/foxy/2.png")
-		end
-	end
-	if jsframe == 5 then
-		if _G.killed == 1 then
-			subject = jollyjs5
-		end
-		if _G.killed == 2 then
-			subject = image.load("assets/png/cutscenes/jumpscares/bonnie/2.png")
-		end
-		if _G.killed == 3 then
-			subject = image.load("assets/png/cutscenes/jumpscares/chica/2.png")
-		end
-		if _G.killed == 4 then
-			subject = image.load("assets/png/cutscenes/jumpscares/foxy/2.png")
-		end
-	end
-	if jsframe == 6 then
-		if _G.killed == 1 then
-			subject = jollyjs6
-		end
-		if _G.killed == 2 then
-			subject = image.load("assets/png/cutscenes/jumpscares/bonnie/2.png")
-		end
-		if _G.killed == 3 then
-			subject = image.load("assets/png/cutscenes/jumpscares/chica/2.png")
-		end
-		if _G.killed == 4 then
-			subject = image.load("assets/png/cutscenes/jumpscares/foxy/2.png")
-		end
-	end
-	if jsframe == 7 then
-		if _G.killed == 1 then
-			subject = jollyjs7
-		end
-		if _G.killed == 2 then
-			subject = image.load("assets/png/cutscenes/jumpscares/bonnie/2.png")
-		end
-		if _G.killed == 3 then
-			subject = image.load("assets/png/cutscenes/jumpscares/chica/2.png")
-		end
-		if _G.killed == 4 then
-			subject = image.load("assets/png/cutscenes/jumpscares/foxy/2.png")
-		end
-	end
-	if jsframe == 8 then
-		if _G.killed == 1 then
-			subject = jollyjs8
-		end
-		if _G.killed == 2 then
-			subject = image.load("assets/png/cutscenes/jumpscares/bonnie/2.png")
-		end
-		if _G.killed == 3 then
-			subject = image.load("assets/png/cutscenes/jumpscares/chica/2.png")
-		end
-		if _G.killed == 4 then
-			subject = image.load("assets/png/cutscenes/jumpscares/foxy/2.png")
-		end
-	end
-	if jsframe == 9 then
-		if _G.killed == 1 then
-			subject = jollyjs9
-		end
-		if _G.killed == 2 then
-			subject = image.load("assets/png/cutscenes/jumpscares/bonnie/2.png")
-		end
-		if _G.killed == 3 then
-			subject = image.load("assets/png/cutscenes/jumpscares/chica/2.png")
-		end
-		if _G.killed == 4 then
-			subject = image.load("assets/png/cutscenes/jumpscares/foxy/2.png")
-		end
-	end
-	if jsframe == 10 then
-		if _G.killed == 1 then
-			subject = jollyjs10
-		end
-		if _G.killed == 2 then
-			subject = image.load("assets/png/cutscenes/jumpscares/bonnie/2.png")
-		end
-		if _G.killed == 3 then
-			subject = image.load("assets/png/cutscenes/jumpscares/chica/2.png")
-		end
-		if _G.killed == 4 then
-			subject = image.load("assets/png/cutscenes/jumpscares/foxy/2.png")
-		end
-	end
-	if buttons.square then
-		jsframe = 1
-	end
-	--[[if jsframe == 17 then -- TURN OFF WHILE DEBUGGING
-		dofile("scripts/gameover.lua")
-	end]]
-	screen.flip()
+    if sound.endstream(scaresnd) == true then
+        sound.play(scaresnd) -- Playing the jumpscare SND.
+    end
+
+    if killeranimstate[2] < jumpframesamount then -- If we can change our frames,
+        killeranimstate[1] += 1 -- We make a basic timer
+
+        if killeranimstate[1] == jumpanimtostop then -- And if it's over,
+            killeranimstate[2] += 1 -- We change the jumpscare frame...
+            killeranimstate[1] = 0 -- ... and resetting the timer.
+        end
+
+        killeranimbase = killeranim[killeranimstate[2]] -- Changing the frame picture from the table.
+    end
+
+    if killeranimstate[2] == jumpframesamount then -- If our animation is over, we finish it.
+        if currentkiller == "jolly" then
+            if jollyjumploop < 2 then -- Workaround for Jolly's jumpscare (it loops 3 times)
+                jollyjumploop += 1
+                killeranimstate[2] = 3
+                killeranimstate[1] = 0
+            else
+                sound.stop(scaresnd) -- Stopping the jumpscare SND.
+                j2_jump(8, true, true) -- Finishing the anim.
+            end
+        elseif currentkiller == "freddy" then
+            if freddyjumploop < 3 then -- Workaround for Freddy's jumpscare (it loops 4 times, uses same script as Jolly's jumpscare)
+                freddyjumploop += 1
+                killeranimstate[2] = 7
+                killeranimstate[1] = 0
+            else
+                sound.stop(scaresnd) -- Stopping the jumpscare SND.
+                j2_jump(8, true, true) -- Finishing the anim.
+            end
+        else -- Or if the killer is George, Bonnie or Chica...
+            sound.stop(scaresnd) -- Stopping the jumpscare SND.
+            j2_jump(8, true, true) -- Finishing the anim.
+        end
+    end
+
+    simpleol.screenBlit(1, 0, 0, killeranimbase) -- Drawing our scripted animation.
+
+    if devmode == true then -- Dev-mode only.
+        screen.print(0, 0, killeranimstate[1] .. "\n" .. killeranimstate[2])
+    end
+
+    screen.flip()
 end

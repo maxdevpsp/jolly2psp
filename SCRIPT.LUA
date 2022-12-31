@@ -13,12 +13,15 @@
 ]]
 
 -- Lib's
-require "lib.savefile"
-require "lib.gamefeatures"
+simpleol = require "lib.simpleol"
+j2 = require "lib.j2module"
 require "assets"
 
 -- Setting file
-require "config"
+config = require "config"
+
+-- Language Pack
+require "assets.language.eng"
 
 -- Fonts
 screenmatrix_fnt = font.load("ScreenMatrix.pgf")
@@ -31,9 +34,12 @@ frame_id ={
     "menu",
     "about",
     "howtoplay",
-    "game"
+    "game",
+    "jumpscare",
+    "gameover"
 }
 -- Launching a frame
-version = "PR-03.1"
-night = 1
+version = "PR-04"
+--night = 1
 j2_jump(6, true, true)
+--j2_jumpscarejump("bonnie")

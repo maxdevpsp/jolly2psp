@@ -1,29 +1,15 @@
 while true do
 
-	-- Playing menu theme
+	-- Playing the menu theme
 	if sound.endstream(menumusic) == true then
 		sound.play(menumusic)
 	end
 
-	-- Frame timer.
+	-- Frame timer
 	intro_frametimer = intro_frametimer + 1
 
-	-- Static timer and animation.
-	if intro_statictimer < 3 then
-		intro_statictimer = intro_statictimer + 0.5
-	end
-	if intro_statictimer == 3 then
-		intro_statictimer = 0
-	end
-	if intro_statictimer == 0 then
-		static_base = static1
-	end
-	if intro_statictimer == 1 then
-		static_base = static2
-	end
-	if intro_statictimer == 2 then
-		static_base = static3
-	end
+	-- Animating the static
+	j2.playStatic()
 
 	-- Drawing static.
 	static_base:blit(0,0)
@@ -42,7 +28,8 @@ while true do
 		j2_jump(3, true, true)
 	end
 
-	debug_print()
+	-- Debug
+	simpleol.showDebug()
 
 	-- Black fade at the start
 	blackfullscreen:blit(0, 0, blackfstransp)
