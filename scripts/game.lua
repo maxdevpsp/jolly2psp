@@ -1,5 +1,5 @@
 -- Loading current night from savefile.
-night = simpleol.loadFromFile(config.savepath)
+night = sol.loadFromFile(config.savepath)
 
 if night ~= "7" then
     nightnum = image.load("assets/png/gui/night/" .. tostring(night) .. ".png")
@@ -12,7 +12,7 @@ while true do
     sound.stop(menumusic)
 
     -- Loading basic colors
-    simpleol.init()
+    sol.init()
 
     -- Drawing ShockBGs
     shockbgleft:blit(0, 0, shockbgtrans[1])
@@ -42,7 +42,7 @@ while true do
     sound.vol(cameraswitchsnd, 20)
 
     if config.devmode == true then
-        simpleol.showDebug()
+        sol.showDebug()
         screen.print(0, 60, "Current night: " .. night, 0.5)
     end
 

@@ -1,5 +1,5 @@
 -- Getting the night value.
-night = simpleol.loadFromFile(config.savepath)
+night = sol.loadFromFile(config.savepath)
 nightNumber = tonumber(night)
 
 while true do
@@ -13,7 +13,7 @@ while true do
 	menuChrAnim.chr[menuChrAnim.acting.currentChr][menuChrAnim.acting.twistNum]:blit(120,0)
 
 	-- Debug printing.
-	simpleol.showDebug()
+	sol.showDebug()
 	
 	-- Drawing the menu logo.
 	logo_menu2:blit(20,240)
@@ -76,11 +76,11 @@ while true do
 
 	if menuChosen == 1 then -- New Game
 		if buttons.cross then
-			simpleol.saveIntoFile(config.savepath, 1)
+			sol.saveIntoFile(config.savepath, 1)
 			j2_jump(5)
 		end
 	elseif menuChosen == 2 then -- Continue
-		night = simpleol.loadFromFile(config.savepath)
+		night = sol.loadFromFile(config.savepath)
 		screen.print(140, 80, night)
 		if buttons.cross then
 			j2_jump(6)

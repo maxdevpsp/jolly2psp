@@ -2,7 +2,7 @@ while true do
     buttons.read()
 
     -- Loading basic colors
-    simpleol.init()
+    sol.init()
 
     if sound.endstream(scaresnd) == true then
         sound.play(scaresnd) -- Playing the jumpscare SND.
@@ -44,7 +44,7 @@ while true do
         end
     end
 
-    simpleol.screenBlit(1, 0, 0, killeranimbase) -- Drawing our scripted animation.
+    sol.draw(1, 0, 0, killeranimbase) -- Drawing our scripted animation.
 
     if devmode == true then -- Dev-mode only.
         screen.print(0, 0, killeranimstate[1] .. "\n" .. killeranimstate[2])

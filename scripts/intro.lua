@@ -29,7 +29,7 @@ while true do
 	end
 
 	-- Debug
-	simpleol.showDebug()
+	sol.showDebug()
 
 	-- Black fade at the start
 	blackfullscreen:blit(0, 0, blackfstransp)

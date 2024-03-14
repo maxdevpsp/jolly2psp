@@ -1,26 +1,66 @@
+--[[
+    
+              This is part of the
+    ----------------------------------------
+                  JOLLY 2 PSP
+    ----------------------------------------
+                made by MaxMafu
+          Make sure to credit properly!
+
+    Start screen with the disclaimer.
+]]
+
+-- Some values for ping-pong fade animation
+local fadeBlack = image.new(480, 272, color.black)
+local blackT = 256
+local fadeBack = false
+
 while true do
 	-- Buttons input.
 	buttons.read()
 
 	-- Basic colors load.
-	simpleol.init()
+	sol.init()
 
-	-- Drawing the background.
-	startscreen:blit(0, 0)
+	-- Drawing the background (static).
+	gm.static()
 
 	-- Drawing the port's logo.
-	simpleol.screenBlit(1, 0, 20, logo_menu2)
+	sol.draw("r", 20, 20, logo_menu2)
+
+	-- Drawing dead screen Jolly
+	sol.draw("r", 187, 0, deadScreen)
 
 	-- Disclaimers.
-	simpleol.screenPrint(1, 5, 85, langpack.startinfo[1], 1)
-	simpleol.screenPrint(1, 0, 120, langpack.startinfo[2], 0.6)
-	simpleol.screenPrint(1, 0, 230, langpack.startconfirm[1] .. "     " .. langpack.startconfirm[2], 0.8)
-	but_cross:blit(langpack.startconfirm[3], langpack.startconfirm[4])
+	sol.print("l", 15, 85, lang.startinfo[1], 1)
+	sol.print("l", 25, 115, lang.startinfo[2], 0.6)
+	sol.print("l", 10, 230, lang.startconfirm[1] .. "     " .. lang.startconfirm[2], 0.8)
+	image.blitsprite(buttonsSheet, lang.startconfirm[3], lang.startconfirm[4], 1)
 
-	simpleol.showDebug()
+	-- Fade rendering
+	sol.draw("r", 0, 0, fadeBlack, blackT)
 
-	if buttons.cross then -- Going to the menu
-		j2_jump(2, true, true)
+	-- Managing transperency
+	if blackT > 0 and not fadeBack then
+		blackT -= 6
+	end
+
+	if blackT < 256 and fadeBack then
+		blackT += 3
+	end
+
+	-- Debug!!
+	sol.showDebug()
+
+	if buttons.cross then -- Switching fade
+		if blackT <= 0 then
+			fadeBack = true
+		end
+	end
+
+	-- Going to the menu if the fade animation has ended
+	if fadeBack and blackT >= 256 then
+		gm.jump("menu")
 	end
 
 	-- Flipping the screen.

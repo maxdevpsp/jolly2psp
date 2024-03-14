@@ -1,29 +1,31 @@
-function j2_assets(fid)
-    if fid == -1 then
-        whitefullscreen = image.load("assets/png/gui/white480x272.png")
-        blackfullscreen = image.load("assets/png/gui/black480x272.png")
-        logo_menu2 = image.load("assets/png/title/logo3.png")
-        whitefstransp = 255
-        blackfstransp = 255
-    elseif fid == 0 then
-        -- Static
-        static_base = image.load("assets/png/gui/static/1.png")
-	    static1 = image.load("assets/png/gui/static/1.png")
-	    static2 = image.load("assets/png/gui/static/2.png")
-	    static3 = image.load("assets/png/gui/static/3.png")
+asset = {}
+function asset.load(fid)
+    if fid == "base" then -- Basic assets (always loaded in)
+        -- Static and its settings
+        staticAssets = {
+            
+            -- Base image for rendering
+            base = image.load("assets/png/gui/static/1.png"),
 
-        animationStatic = {
-            static1,
-            static2,
-            static3
+            -- Animation related assets
+            animation = {
+                image.load("assets/png/gui/static/1.png"),
+                image.load("assets/png/gui/static/2.png"),
+                image.load("assets/png/gui/static/3.png")
+            },
+            sTimer = 0,
+            curFrame = 1
         }
 
-        statictimer = 0
-        staticFrameCurrent = 1
-    elseif fid == 1 then
-        but1 = image.load("assets/png/gui/buttons/cross.png")
+        -- Button images
+        buttonsSheet = image.load("assets/png/gui/buttonsSheet.png", 32, 32)
+    elseif fid == "start" then
         startscreen = image.load("assets/png/gui/startscreen.png")
         logo_menu2 = image.load("assets/png/title/logo3.png")
+        deadScreen = image.load("assets/png/cutscenes/gameover/ded.png")
+        
+        -- Flipping dead screen Jolly
+        deadScreen:fliph()
     elseif fid == 2 then
         -- Variables
         intro_statictimer = 0
@@ -372,7 +374,7 @@ function j2_assets(fid)
     end
 end
 
-function j2_jumpscarejump(killer)
+function asset.jumpscarejump(killer)
     collectgarbage("collect")
 
     if killer == "jolly" then
@@ -467,30 +469,4 @@ function j2_jumpscarejump(killer)
     dofile("scripts/jumpscare.lua")
 end
 
-function j2_jump(id, reqst, reqef)
-    collectgarbage("collect")
-
-    -- An exception for intro and menu screens. They load togeher.
-    if id == 2 then
-        j2_assets(2)
-        j2_assets(3)
-    else
-        j2_assets(id)
-    end
-
-    -- If requires static
-    if reqst == true then
-        j2_assets(0)
-    end
-
-    -- If requires effects
-    if reqef == true then
-        j2_assets(-1)
-    end
-
-    -- Buttons
-    but_cross = image.load("assets/png/gui/buttons/cross_upd_v3.png")
-    but_circle = image.load("assets/png/gui/buttons/circle_upd_v3.png")
-
-    dofile("scripts/" .. frame_id[id] .. ".lua")
-end
+return asset
