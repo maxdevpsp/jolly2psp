@@ -27,18 +27,6 @@ lang = require("assets.lang.eng")
 -- Fonts
 --screenmatrix_fnt = font.load("ScreenMatrix.pgf")
 
--- Frame ID table
--- Used with asset.jump().
---[[frame_id ={
-    "start",
-    "intro",
-    "menu",
-    "about",
-    "howtoplay",
-    "game",
-    "jumpscare",
-    "gameover"
-}]]
 -- Launching a frame
 sol.init()
 gm.jump("start")

@@ -1,5 +1,5 @@
 --[[
-    SimpleOL by maxdev
+    SimpleOL by MaxMafu
 ]]
 
 sol = {}
@@ -27,7 +27,12 @@ function sol.draw(mode, x, y, image, transp)
     
     elseif mode == "c" then -- Centered Mode
         local image_newX = 240 - (image.getw(image) / 2) -- Half of PSP's screen - (width of given image / 2)
-        image:blit(image_newX + x, y) -- WARNING: if you use centered mode, your x variable is x OFFSET.
+        image:blit(image_newX + x, y, transp) -- WARNING: if you use centered mode, your x variable is x OFFSET.
+    
+    elseif mode == "fc" then -- Fixed Centered Mode
+        local image_newX = 240 - (image.getw(image) / 2) -- Half of PSP's screen - (width of given image / 2)
+        local image_newY = 136 - (image.geth(image) / 2) -- Half of PSP's screen - (height of given image / 2)
+        image:blit(image_newX + x, image_newY + y, transp) -- WARNING: if you use centered mode, your x variable is x OFFSET.
     end
 end
 
@@ -63,7 +68,7 @@ end
     SAVE AND LOAD
 ]]
 
-function sol.saveIntoFile(path, value)
+function sol.saveFile(path, value)
     local saveFile = io.open(path, 'w') -- Opening given file for editing
     if saveFile then
         saveFile:write(tostring(value)) -- Writing given value
@@ -72,7 +77,7 @@ function sol.saveIntoFile(path, value)
     return true
 end
 
-function sol.loadFromFile(path)
+function sol.loadFile(path)
     local file = io.open(path, "r") -- Opening given file for reading
     local valueToGive = ""
     if file then

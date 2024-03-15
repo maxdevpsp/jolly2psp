@@ -1,3 +1,15 @@
+--[[
+    
+              This is part of the
+    ----------------------------------------
+                  JOLLY 2 PSP
+    ----------------------------------------
+                made by MaxMafu
+          Make sure to credit properly!
+
+    The asset distribution system.
+]]
+
 asset = {}
 function asset.load(fid)
     if fid == "base" then -- Basic assets (always loaded in)
@@ -26,84 +38,51 @@ function asset.load(fid)
         
         -- Flipping dead screen Jolly
         deadScreen:fliph()
-    elseif fid == 2 then
-        -- Variables
-        intro_statictimer = 0
-        intro_frametimer = 0
+    elseif fid == "menu" then
+        -- Intro sequence
+        introWheel = image.load("assets/png/title/wheel.png")
+        logo_menu2 = image.load("assets/png/title/logo2.png")
 
-        -- Tables
-        transp = {0, 0}
-
-        -- Pictures
-        logo_menu = image.load("assets/png/title/logo2.png")
-        wheel = image.load("assets/png/title/wheel.png")
-
-        menumusic = sound.load("assets/wav/risenc.titlesong.wav")
-    elseif fid == 3 then
-        -- Pictures
-        bgjolly = image.load("assets/png/title/jolly/1.png")
-	    bgjolly1 = image.load("assets/png/title/jolly/1.png")
-	    bgjolly1t = image.load("assets/png/title/jolly/1t.png")
-	    bgjolly2 = image.load("assets/png/title/jolly/2.png")
-	    bgjolly3 = image.load("assets/png/title/jolly/3.png")
-	    bgjolly4 = image.load("assets/png/title/jolly/4.png")
-
-        -- Ready for Fedie?
-	    bgfr1 = image.load("assets/png/title/freddy/1.png")
-	    bgfr1t = image.load("assets/png/title/freddy/1t.png")
-	    bgfr2 = image.load("assets/png/title/freddy/2.png")
-	    bgfr3 = image.load("assets/png/title/freddy/3.png")
-	    bgfr4 = image.load("assets/png/title/freddy/4.png")
-
-	    logo_menu2 = image.load("assets/png/title/logo3.png")
+        -- Menu assets
+	    logo_menu3 = image.load("assets/png/title/logo3.png")
 	    pointer_menu = image.load("assets/png/title/pointer.png")
         pointer_s = image.load("assets/png/gui/pointer.png")
 	    text_m = image.load("assets/png/title/yesimlazy.png")
 
-        menuChrAnim = {
-            chr = {
+        menuChar = {
+            anim = {
                 -- Jolly
                 {
                     image.load("assets/png/title/jolly/1.png"), 
+                    image.load("assets/png/title/jolly/1t.png"), 
                     image.load("assets/png/title/jolly/2.png"), 
                     image.load("assets/png/title/jolly/3.png"), 
                     image.load("assets/png/title/jolly/4.png")
                 },
                 -- Freddy
                 {
-                    image.load("assets/png/title/freddy/1.png"), 
+                    image.load("assets/png/title/freddy/1.png"),
+                    image.load("assets/png/title/freddy/1t.png"),  
                     image.load("assets/png/title/freddy/2.png"), 
                     image.load("assets/png/title/freddy/3.png"), 
                     image.load("assets/png/title/freddy/4.png")
                 }
                 -- Chica (not here cry about it)
             },
-            config = {
-                switchMode = 0
-            },
-            acting = {
-                currentChr = 1,
-                switchTimer = 0,
-                twistNum = 1,
-                twistTimer = 0,
-                twistResetTimer = 0
-            }
+            currentChr = 1,
+            switchTimer = 0,
+            twistNum = 1,
+            twistTimer = 0,
+            twistResetTimer = 0
         }
-
-        bgtimer = 0
-        bgdecide = 1
-        bgtrans = 0
-        bgwait = 0
-        bgchange = 0
-        bgstate = 1
         menuChosen = 1
         pointerY = 65
 
         menumusic = sound.load("assets/wav/risenc.titlesong.wav")
     elseif fid == 4 then
         logo_menu2 = image.load("assets/png/title/logo3.png")
-    elseif fid == 5 then
-        htp_img = image.load("assets/png/gui/htp_new_0.png")
+    elseif fid == "howtoplay" then
+        htp_img = image.load("assets/png/gui/htpv2.png")
     elseif fid == 6 then
         -- The Office
         office1 = image.load("assets/png/gameprocess/office/panorama/1_1.png")
