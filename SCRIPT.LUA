@@ -42,4 +42,4 @@ end
 -- User's settings
 userSettings = require "userSettings"
 
-gm.jump("game")
+gm.jump("start")
