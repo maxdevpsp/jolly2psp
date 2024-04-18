@@ -1,4 +1,5 @@
 local asset = require "assets"
+local sol = require "lib.sol"
 
 local gm = {}
 
@@ -39,6 +40,27 @@ function gm.jump(id, reqst, reqef)
 
     -- Doing the frame. Using tostring if bro'll try to load a 1.lua or any number named frame :skull:
     dofile("scripts/" .. tostring(id) .. ".lua")
+end
+
+--[[function gm.animate(spriteTable, curFrame, speed, loop)
+    local animTimer = 0
+    local fr = curFrame
+    animTimer += speed
+    if animTimer == 1 then
+        if fr < #spriteTable then
+            fr += 1
+        end
+        animTimer = 0
+    end
+    local toReturn = {
+        spriteTable[fr],
+        fr
+    }
+    return toReturn
+end]]
+
+function gm.createNewSettingsFile(language, debug)
+    sol.saveFile("userSettings.lua", "return {language = '" .. language .. "}")
 end
 
 return gm

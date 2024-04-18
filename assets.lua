@@ -79,53 +79,45 @@ function asset.load(fid)
         pointerY = 65
 
         menumusic = sound.load("assets/wav/risenc.titlesong.wav")
-    elseif fid == 4 then
-        logo_menu2 = image.load("assets/png/title/logo3.png")
+    elseif fid == "settings" then
+        menumusic = sound.load("assets/wav/risenc.titlesong.wav")
+        pointer_s = image.load("assets/png/gui/pointer.png")
     elseif fid == "howtoplay" then
         htp_img = image.load("assets/png/gui/htpv2.png")
-    elseif fid == 6 then
+    elseif fid == "game" then
         -- The Office
-        office1 = image.load("assets/png/gameprocess/office/panorama/1_1.png")
-        office2 = image.load("assets/png/gameprocess/office/panorama/1_2.png")
-        
-        -- The Office (Reserve)
-        office1re = image.load("assets/png/gameprocess/office/panorama/1_1.png")
-        office2re = image.load("assets/png/gameprocess/office/panorama/1_2.png")
-        
-        -- The Gas supply
-        gas1 = image.load("assets/png/gameprocess/office/panorama/2_1.png")
-        gas2 = image.load("assets/png/gameprocess/office/panorama/2_2.png")
+
+        officeImg = {
+            current = {
+                image.load("assets/png/gameprocess/office/panorama/1_1.png"),
+                image.load("assets/png/gameprocess/office/panorama/1_2.png")
+            },
+            default = {
+                image.load("assets/png/gameprocess/office/panorama/1_1.png"),
+                image.load("assets/png/gameprocess/office/panorama/1_2.png")
+            },
+            gas = {
+                image.load("assets/png/gameprocess/office/panorama/2_1.png"),
+                image.load("assets/png/gameprocess/office/panorama/2_2.png")
+            }
+        }
         
         -- Animations
-        a1 = image.load("assets/png/gameprocess/office/anim/1_1.png")
-        a2 = image.load("assets/png/gameprocess/office/anim/1_2.png")
-        a5 = image.load("assets/png/gameprocess/office/anim/3_1.png")
-        a6 = image.load("assets/png/gameprocess/office/anim/3_2.png")
-        a9 = image.load("assets/png/gameprocess/office/anim/5_1.png")
-        a10 = image.load("assets/png/gameprocess/office/anim/5_2.png")
-        a13 = image.load("assets/png/gameprocess/office/anim/7_1.png")
-        a14 = image.load("assets/png/gameprocess/office/anim/7_2.png")
-        a17 = image.load("assets/png/gameprocess/office/anim/9_1.png")
-        a18 = image.load("assets/png/gameprocess/office/anim/9_2.png")
-        a19 = image.load("assets/png/gameprocess/office/anim/10_1.png")
-        a20 = image.load("assets/png/gameprocess/office/anim/10_2.png")
+        officeAnimation = {
+            anims = { { {}, {} }, { {}, {} }, },
+            curFrame = 0,
+            animTimer = 0
+        }
 
-        b1 = image.load("assets/png/gameprocess/office/anim/anim2/1_1.png")
-        b2 = image.load("assets/png/gameprocess/office/anim/anim2/1_2.png")
-        b5 = image.load("assets/png/gameprocess/office/anim/anim2/3_1.png")
-        b6 = image.load("assets/png/gameprocess/office/anim/anim2/3_2.png")
-        b9 = image.load("assets/png/gameprocess/office/anim/anim2/5_1.png")
-        b10 = image.load("assets/png/gameprocess/office/anim/anim2/5_2.png")
-        b13 = image.load("assets/png/gameprocess/office/anim/anim2/7_1.png")
-        b14 = image.load("assets/png/gameprocess/office/anim/anim2/7_2.png")
-        b17 = image.load("assets/png/gameprocess/office/anim/anim2/9_1.png")
-        b18 = image.load("assets/png/gameprocess/office/anim/anim2/9_2.png")
-        b19 = image.load("assets/png/gameprocess/office/anim/anim2/10_1.png")
-        b20 = image.load("assets/png/gameprocess/office/anim/anim2/10_2.png")
-        
-        -- Shock
-        shockbgleft = image.load("assets/png/gameprocess/office/shock/shockleft.png")
-        shockbgright = image.load("assets/png/gameprocess/office/shock/shockright.png")
+        for i = 1, 11 do
+            -- Loading tablet animation
+            officeAnimation.anims[1][1][i] = image.load("assets/png/gameprocess/office/anim/tablet/" .. i .. "_1.png")
+            officeAnimation.anims[1][2][i] = image.load("assets/png/gameprocess/office/anim/tablet/" .. i .. "_2.png")
+
+            -- Loading gas animation
+            officeAnimation.anims[2][1][i] = image.load("assets/png/gameprocess/office/anim/gas/" .. i .. "_1.png")
+            officeAnimation.anims[2][2][i] = image.load("assets/png/gameprocess/office/anim/gas/" .. i .. "_2.png")
+        end
         
         -- GUI
         bar = image.load("assets/png/gameprocess/office/shock/bar.png")
@@ -158,20 +150,16 @@ function asset.load(fid)
         mapposd = image.load("assets/png/gameprocess/office/monitor/mapposwtf.png")
 
         -- TV Static
-        tvs_1 = image.load("assets/png/gameprocess/office/tvstatic/37.png")
-        tvs_2 = image.load("assets/png/gameprocess/office/tvstatic/38.png")
-        tvs_3 = image.load("assets/png/gameprocess/office/tvstatic/39.png")
-        tvs_4 = image.load("assets/png/gameprocess/office/tvstatic/40.png")
-        tvs_5 = image.load("assets/png/gameprocess/office/tvstatic/41.png")
         tvs_base = image.load("assets/png/gameprocess/office/tvstatic/37.png")
-
         tvstaticanim = {
-            tvs_1,
-            tvs_2,
-            tvs_3,
-            tvs_4,
-            tvs_5
+            image.load("assets/png/gameprocess/office/tvstatic/37.png"),
+            image.load("assets/png/gameprocess/office/tvstatic/38.png"),
+            image.load("assets/png/gameprocess/office/tvstatic/39.png"),
+            image.load("assets/png/gameprocess/office/tvstatic/40.png"),
+            image.load("assets/png/gameprocess/office/tvstatic/41.png")
         }
+        tvLight = image.load("assets/png/gameprocess/office/tvLight.png")
+        tvLightTransp = 255
 
         debuganimicons = image.load("assets/png/gameprocess/office/monitor/debuganimicons.png", 32, 32)
 
@@ -185,10 +173,18 @@ function asset.load(fid)
         extrasection = {0, false, 0}
         extraname = ""
         animswitch = {false, false, false, false}
-        timera = 0
+
+        -- Shocking mechanic
+        -- Current amount of energy
         energyamount = {6, 6}
+
+        -- If shock is used atm
         shockusage = {false, false}
-        shockbgtrans = {0, 0}
+
+        -- Shock light transperency
+        shockWhiteTransp = {0, 0}
+
+        -- Shock amount timer
         eatimer = {0, 0}
         barpos = {
             left = {25, 41, 57, 73, 89, 105},
@@ -209,9 +205,14 @@ function asset.load(fid)
         isUp = 0
         tvs_stats = {0, 1}
         mappospos = {0, 0}
+
+        -- Night intro state
         introState = 0
-        introscreentransp = 255
-        intronighttransp = 0
+        -- Night black screen transperency
+        introBlackTransp = 255
+        introBackTransp = 255
+        -- Night text transperency
+        introTextTransp = 255
         ai = {
             timers = {0, 0, 0, 0, 0},
             aiGen = {0, 0, 0, 0, 0},
@@ -333,23 +334,12 @@ function asset.load(fid)
                 pointpos = {445, 218}
             }
         }
-        animationToTabletP1 = {a1, a5, a9, a13, a17, a19}
-        animationToTabletP2 = {a2, a6, a10, a14, a18, a20}
-        animationFromTabletP1 = {a19, a17, a13, a9, a5, a1}
-        animationFromTabletP2 = {a20, a18, a14, a10, a6, a2}
-
-        animationToGasP1 = {b1, b5, b9, b13, b17, b19}
-        animationToGasP2 = {b2, b6, b10, b14, b18, b20}
-        animationFromGasP1 = {b19, b17, b13, b9, b5, b1}
-        animationFromGasP2 = {b20, b18, b14, b10, b6, b2}
-        currentAnimFrame = 0
 
         officeamb = sound.load("assets/wav/ambience.mp3")
         cameraamb = sound.load("assets/wav/camera_fx.mp3")
         runslowsnd = sound.load("assets/wav/run slow.mp3")
         doorshocksnd = sound.load("assets/wav/fry.mp3")
         cameraswitchsnd = sound.load("assets/wav/tv change channel.mp3")
-        menumusic = sound.load("assets/wav/risenc.titlesong.wav")
     end
 end
 

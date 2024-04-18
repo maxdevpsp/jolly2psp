@@ -1,0 +1,10 @@
+# Reference folder
+ref/
+reserve/
+
+# .pdn files
+*.pdn
+
+# Any savefiles or settings
+userSettings.lua
+savefile.txt

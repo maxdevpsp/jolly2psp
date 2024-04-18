@@ -29,4 +29,17 @@ lang = require("assets.lang.eng")
 
 -- Launching a frame
 sol.init()
-gm.jump("start")
+
+-- If the settings file doesn't exist, create one
+if not files.exists("userSettings.lua") then
+      gm.createNewSettingsFile("eng")
+end
+-- If the save file doesn't exist, create one
+if not files.exists(config.savepath) then
+      sol.saveFile(config.savepath, "1")
+end
+
+-- User's settings
+userSettings = require "userSettings"
+
+gm.jump("game")

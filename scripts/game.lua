@@ -1,38 +1,63 @@
--- Loading current night from savefile.
-night = sol.loadFromFile(config.savepath)
+--[[
+    
+              This is part of the
+    ----------------------------------------
+                  JOLLY 2 PSP
+    ----------------------------------------
+                made by MaxMafu
+          Make sure to credit properly!
 
-if night ~= "7" then
-    nightnum = image.load("assets/png/gui/night/" .. tostring(night) .. ".png")
+    The main gameplay file.
+]]
+
+-- Getting the night value.
+local curNight = tonumber(sol.loadFile(config.savepath))
+
+-- Making the black fade
+local fadeBlack = image.new(480, 275, color.black)
+
+-- Making the door shock rect (like what's the point in keeping them as pngs)
+local shockWhite = image.new(100, 275, color.white)
+
+if menumusic then
+    sound.stop(menumusic)
 end
 
 while true do
     buttons.read()
 
-    -- Stopping the menu music
-    sound.stop(menumusic)
-
-    -- Loading basic colors
-    sol.init()
-
-    -- Drawing ShockBGs
-    shockbgleft:blit(0, 0, shockbgtrans[1])
-    shockbgright:blit(scroll[1] + 480, 0, shockbgtrans[2])
-
-    -- Drawing TV Static
-    tvs_base:blit(scroll[1] + 230, scroll[2] + 80)
-
-    -- Drawing office
-    office1:blit(scroll[1], 0)
-    office2:blit(scroll[1] + 480, 0)
-
     -- Drawing camera
     if isUp == 1 then
         cameram:blit(camerascrollx, 0)
         cameramp2:blit(camerascrollx + 480, 0)
+    else
+
+        -- Drawing office
+        if directionlook == 0 then
+            -- Drawing ShockBGs
+            shockWhite:blit(0, 0, shockWhiteTransp[1])
+            shockWhite:blit(scroll[1] + 480, 0, shockWhiteTransp[2])
+
+            -- Drawing TV Static
+            tvs_base:blit(scroll[1] + 230, scroll[2] + 80)
+
+            officeImg.default[1]:blit(scroll[1], 0)
+            officeImg.default[2]:blit(scroll[1] + 480, 0)
+
+            -- Drawing TV light and transperncy tweaks
+            tvLight:blit(scroll[1] + 185, scroll[2] + 38, tvLightTransp)
+            tvLightTransp = math.random(105, 155)
+        elseif directionlook == 1 then
+            officeImg.gas[1]:blit(scroll[1], 0)
+            officeImg.gas[2]:blit(scroll[1] + 480, 0)
+        elseif directionlook == 2 then
+            officeImg.current[1]:blit(scroll[1], 0)
+            officeImg.current[2]:blit(scroll[1] + 480, 0)
+        end
     end
 
     -- Office AMB
-    if sound.endstream(officeamb) == true then
+    if not sound.playing(officeamb) == true then
 	    sound.play(officeamb)
     end
 
@@ -43,7 +68,7 @@ while true do
 
     if config.devmode == true then
         sol.showDebug()
-        screen.print(0, 60, "Current night: " .. night, 0.5)
+        screen.print(0, 60, "Current night: " .. curNight, 0.5)
     end
 
     if isUp == 0 then -- If the player is not using the tablet
@@ -68,18 +93,18 @@ while true do
 
         -- Energy usage and shock mechanic
 
-        if buttons.square then -- If we press SQUARE,
+        if buttons.l then -- If we press L,
             if energyamount[1] == 6 and isUp == 0 then -- If the have the full amount if energy and if we're not using the tablet,
                 energyamount[1] = 1 -- If we use the shock, we're giving our power
-                shockbgtrans[1] = 255 -- and triggering the shock anim.
+                shockWhiteTransp[1] = 255 -- and triggering the shock anim.
                 sound.play(doorshocksnd)
             end
         end
 
-        if buttons.circle then -- If we press CIRCLE,
+        if buttons.r then -- If we press R,
             if energyamount[2] == 6 and isUp == 0 then -- If the have the full amount if energy and if we're not using the tablet,
                 energyamount[2] = 1 -- If we use the shock, we're giving our power
-                shockbgtrans[2] = 255 -- and triggering the shock anim.
+                shockWhiteTransp[2] = 255 -- and triggering the shock anim.
                 -- Resetting AIs
                 if ai.path[1] == 6 then
                     ai.path[1] = 0
@@ -88,34 +113,31 @@ while true do
             end
         end
 
-        if shockbgtrans[1] > 1 then -- If the shock anim is triggered,
-            shockbgtrans[1] = shockbgtrans[1] - 5 -- we slowly fade it out.
+        if shockWhiteTransp[1] > 1 then -- If the shock anim is triggered,
+            shockWhiteTransp[1] = shockWhiteTransp[1] - 5 -- we slowly fade it out.
         end
 
-        if shockbgtrans[2] > 1 then -- If the shock anim is triggered,
-            shockbgtrans[2] = shockbgtrans[2] - 5 -- we slowly fade it out.
+        if shockWhiteTransp[2] > 1 then -- If the shock anim is triggered,
+            shockWhiteTransp[2] = shockWhiteTransp[2] - 5 -- we slowly fade it out.
         end
 
         -- If the tablet is close, we can move our camera and scroll through the office:
-        if buttons.held.right then -- If the player holds RIGHT,
+        if buttons.held.right and directionlook < 2 then -- If the player holds RIGHT,
             if scroll[1] > scrolllimits[2] then -- If the camera isn't close to the scroll limit,
                 scroll[1] = scroll[1] - scroll[2] -- Moving the camera
             end
         end
-        if buttons.held.left then -- If the player holds LEFT,
+        if buttons.held.left and directionlook < 2 then -- If the player holds LEFT,
             if scroll[1] < -1 then -- If the camera isn't close to the scroll limit,
                 scroll[1] = scroll[1] + scroll[2] -- Moving the camera
             end
         end
 
         -- Now we need to go to the gas fixing screen.
-        if buttons.l and directionlook == 0 and introState > 0 then -- If we press LT and we're looking forward,
-            if scroll[1] > -25 and animswitch[1] == false and animswitch[2] == false and animswitch[4] == false then -- and if the camera is in the specific zone,
+        if buttons.down and introState > 0 then -- If we press LT and we're looking forward,
+            if directionlook == 0 and animswitch[1] == false and animswitch[2] == false and animswitch[4] == false then -- and if the camera is in the specific zone,
                 animswitch[3] = true -- Turning on the anim
-            end
-        end
-        if buttons.r and directionlook == 1 and introState > 0 then -- If we press RT and we're looking forward,
-            if scroll[1] < -25 and animswitch[1] == false and animswitch[2] == false and animswitch[3] == false then -- and if the camera is in the specific zone,
+            elseif directionlook == 1 and animswitch[1] == false and animswitch[2] == false and animswitch[3] == false then -- and if the camera is in the specific zone,
                 animswitch[4] = true -- Turning on the anim
             end
         end
@@ -123,7 +145,7 @@ while true do
 
     -- Camera monitor and all the stuff
 
-    if buttons.triangle and directionlook == 0 and introState > 0 then -- If the player presses TRIANGLE and looking forward,
+    if buttons.up and directionlook == 0 and introState > 0 then -- If the player presses Up and looking forward,
         if isUp == 0 then -- If we aren't using the tablet,
             animswitch[1] = true -- Play the following anim
         elseif isUp == 1 then -- but if we use it,
@@ -194,94 +216,110 @@ while true do
     -- Recharging the energy
 
     if energyamount[1] < 6 then -- If the energy amount is below 6,
-            eatimer[1] = eatimer[1] + 1 -- We make a timer.
-            if eatimer[1] == 300 then -- And if the timer is 100,
-                energyamount[1] = energyamount[1] + 1 -- We get an energy bar back...
-                eatimer[1] = 0 -- ... and resetting the timer.
-            end
+        eatimer[1] = eatimer[1] + 1 -- We make a timer.
+        if eatimer[1] == 300 then -- And if the timer is 100,
+            energyamount[1] = energyamount[1] + 1 -- We get an energy bar back...
+            eatimer[1] = 0 -- ... and resetting the timer.
+        end
     end
 
     if energyamount[2] < 6 then -- If the energy amount is below 6,
-            eatimer[2] = eatimer[2] + 1 -- We make a timer.
-            if eatimer[2] == 300 then -- And if the timer is 100,
-                energyamount[2] = energyamount[2] + 1 -- We get an energy bar back...
-                eatimer[2] = 0 -- ... and resetting the timer.
-            end
+        eatimer[2] = eatimer[2] + 1 -- We make a timer.
+        if eatimer[2] == 300 then -- And if the timer is 100,
+            energyamount[2] = energyamount[2] + 1 -- We get an energy bar back...
+            eatimer[2] = 0 -- ... and resetting the timer.
+        end
     end
 
     -- Animations
-    if animswitch[1] == true and introState > 0 then -- Going to tablet
-        timera = timera + 0.25
-        if timera == 1 then -- If the timer is 1,
-            currentAnimFrame += 1 -- We add 1 to our current frame...
-            office1 = animationToTabletP1[currentAnimFrame] -- ... and draw frames themselves.
-            office2 = animationToTabletP2[currentAnimFrame] -- Same here.
-            timera = 0 -- Setting timer to -0 for future use.
-        end
-        if currentAnimFrame == 7 then -- And if we've reached the limit,
-            isUp = 1 -- Opening tablet
-            timera = 0 -- Setting anim script variables to default
-            currentAnimFrame = 0 -- same here.
-            office1 = office1re
-            office2 = office2re
-            animswitch[1] = false -- Turning the anim script off
-        end
-    end
-    if animswitch[2] == true and introState > 0 then -- Going from tablet
-        timera = timera + 0.25
-        isUp = 0 -- Closing tablet
-        if timera == 1 then -- If the timer is 1,
-            currentAnimFrame += 1 -- We add 1 to our current frame...
-            office1 = animationFromTabletP1[currentAnimFrame] -- ... and draw frames themselves.
-            office2 = animationFromTabletP2[currentAnimFrame] -- Same here.
-            timera = 0 -- Setting timer to -0 for future use.
-        end
-        if currentAnimFrame == 7 then
-            timera = 0 -- Setting anim script variables to default
-            currentAnimFrame = 0 -- same here.
-            office1 = office1re
-            office2 = office2re
-            animswitch[2] = false -- Turning the anim script off
+
+    -- 1: Going into tablet
+    if animswitch[1] == true and introState > 0 then
+        -- Changing the office state
+        directionlook = 2
+        -- Handling the timer
+        officeAnimation.animTimer = officeAnimation.animTimer + 0.45
+
+        -- When timer is >= 1
+        if officeAnimation.animTimer >= 1 then
+            -- We switch the frame if it's not the final one
+            if officeAnimation.curFrame < #officeAnimation.anims[1][1] then
+                officeAnimation.curFrame += 1
+                officeImg.current[1] = officeAnimation.anims[1][1][officeAnimation.curFrame]
+                officeImg.current[2] = officeAnimation.anims[1][2][officeAnimation.curFrame]
+            else
+                -- Changing the office state back
+                directionlook = 0
+                -- Going to the tablet mode
+                isUp = 1
+                -- Turning the anim script off
+                animswitch[1] = false
+            end
+            -- Setting timer to 0 for future use.
+            officeAnimation.animTimer = 0
         end
     end
-    if animswitch[3] == true and introState > 0 then -- Going to Gas
-        timera = timera + 0.25
-        directionlook = 1 -- Changing the look direction
-        if timera == 1 then -- If the timer is 1,
-            currentAnimFrame += 1 -- We add 1 to our current frame...
-            office1 = animationToGasP1[currentAnimFrame] -- ... and draw frames themselves.
-            office2 = animationToGasP2[currentAnimFrame] -- Same here.
-            timera = 0 -- Setting timer to -0 for future use.
-        end
-        if currentAnimFrame == 7 then
-            scroll[1] = -86 -- Changing current screen scroll a bit
-            timera = 0 -- Setting anim script variables to default
-            currentAnimFrame = 0 -- same here.
-            office1 = gas1
-            office2 = gas2
-            animswitch[3] = false -- Turning the anim script off
-        end
-    end
-    if animswitch[4] == true and introState > 0 then -- Going from Gas
-        timera = timera + 0.25
-        scroll[1] = 0 -- Changing scroll back
-        if timera == 1 then -- If the timer is 1,
-            currentAnimFrame += 1 -- We add 1 to our current frame...
-            office1 = animationFromGasP1[currentAnimFrame] -- ... and draw frames themselves.
-            office2 = animationFromGasP2[currentAnimFrame] -- Same here.
-            timera = 0 -- Setting timer to -0 for future use.
-        end
-        if currentAnimFrame == 7 then
-            directionlook = 0 -- Changing the look direction
-            timera = 0 -- Setting anim script variables to default
-            currentAnimFrame = 0 -- same here.
-            office1 = office1re
-            office2 = office2re
-            animswitch[4] = false -- Turning the anim script off
+    -- 2: Going from tablet
+    if animswitch[2] == true and introState > 0 then
+        -- Changing the office state
+        directionlook = 2
+        isUp = 0
+        -- Handling the timer
+        officeAnimation.animTimer = officeAnimation.animTimer + 0.45
+
+        -- When timer is >= 1
+        if officeAnimation.animTimer >= 1 then
+            -- We switch the frame if it's not the final one
+            if officeAnimation.curFrame > 1 then
+                officeAnimation.curFrame -= 1
+                officeImg.current[1] = officeAnimation.anims[1][1][officeAnimation.curFrame]
+                officeImg.current[2] = officeAnimation.anims[1][2][officeAnimation.curFrame]
+            else
+                -- Changing the office state back
+                directionlook = 0
+                -- Turning the anim script off
+                animswitch[2] = false
+            end
+            -- Setting timer to 0 for future use.
+            officeAnimation.animTimer = 0
         end
     end
 
-    --screen.print(0, 80, timera .. "\n" .. currentAnimFrame)
+    if animswitch[3] == true and introState > 0 then -- Going to Gas
+        officeAnimation.animTimer = officeAnimation.animTimer + 0.45
+        directionlook = 2 -- Changing the look direction
+        if officeAnimation.animTimer >= 1 then -- If the timer is 1,
+            officeAnimation.curFrame += 1 -- We add 1 to our current frame..
+            if officeAnimation.curFrame < #officeAnimation.anims[2][1] then
+                officeImg.current[1] = officeAnimation.anims[2][1][officeAnimation.curFrame] -- ... and draw frames themselves.
+                officeImg.current[2] = officeAnimation.anims[2][2][officeAnimation.curFrame] -- Same here.
+            else
+                directionlook = 1 -- Changing the look direction
+                animswitch[3] = false -- Turning the anim script off
+            end
+            officeAnimation.animTimer = 0 -- Setting anim script variables to default
+        end
+    end
+    if animswitch[4] == true and introState > 0 then -- Going from Gas
+        directionlook = 2 -- Changing the look direction
+        officeAnimation.animTimer = officeAnimation.animTimer + 0.45
+        scroll[1] = 0 -- Changing scroll back
+        if officeAnimation.animTimer >= 1 then -- If the timer is 1,
+            officeAnimation.curFrame -= 1 -- We add 1 to our current frame..
+            if officeAnimation.curFrame > 0 then
+                officeImg.current[1] = officeAnimation.anims[2][1][officeAnimation.curFrame] -- ... and draw frames themselves.
+                officeImg.current[2] = officeAnimation.anims[2][2][officeAnimation.curFrame] -- Same here.
+            else
+                directionlook = 0 -- Changing the look direction
+                animswitch[4] = false -- Turning the anim script off
+            end
+            officeAnimation.animTimer = 0 -- Setting anim script variables to default
+        end
+    end
+
+    screen.print(20, 120, officeAnimation.curFrame .. "\n" .. directionlook .. "\n" .. tostring(animswitch[3]))
+
+    --screen.print(0, 80, officeAnimation.animTimer .. "\n" .. officeAnimation.curFrame)
 
     -- The hardest thing out there: the AI.
 
@@ -457,30 +495,32 @@ while true do
 
     tvs_base = tvstaticanim[tvs_stats[2]] -- Drawing animated TV Static.
 
-    if buttons.cross then
-        j2_jumpscarejump("jolly")
-        sound.stop(officeamb)
-    end
-
     -- Intro Sequence
-    blackfullscreen:blit(0, 0, introscreentransp)
+    -- Additional black screen behind text
+    fadeBlack:blit(0, 0, introBackTransp)
 
+    -- Printing the night value
+    sol.print("c", 0, 131, lang.gameNights[curNight], 1.4, color.new(255, 255, 255, introTextTransp))
+
+    -- Drawing the black screen
+    fadeBlack:blit(0, 0, introBlackTransp)
+    
+    -- State 0 - fade out
     if introState == 0 then
-        if intronighttransp < 255 then
-            intronighttransp += 2.5
+        if introBlackTransp > 0 then
+            introBlackTransp -= 2.5
         else
             introState = 1
         end
+    -- State 1 - Night fade out
     elseif introState == 1 then
-        if intronighttransp > 0 then
-            intronighttransp -= 1.5
-            introscreentransp -= 1.5
+        if introTextTransp > 0 then
+            introTextTransp -= 1.5
+            introBackTransp -= 1.5
         else
-            introState = 2
+            introState = 2 -- Sequence over
         end
     end
-
-    nightnum:blit(0, 0, intronighttransp)
 
     screen.flip()
 end

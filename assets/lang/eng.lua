@@ -23,5 +23,20 @@ return {
         "Extras",
         "Options",
         "Exit"
-    }
+    },
+    settingsPref = {
+        "Language: English"
+    },
+    howToPlay = {
+        "Loading..."
+    },
+    gameNights = {
+        "1st Night",
+        "2nd Night",
+        "3rd Night",
+        "4th Night",
+        "5th Night",
+        "6th Night",
+        "Custom Night"
+    },
 }

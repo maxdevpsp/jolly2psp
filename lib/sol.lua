@@ -53,7 +53,7 @@ function sol.print(mode, x, y, text, size, col1, col2)
     end
 
     if col2 == nil then -- If not given color 2,
-        col2 = color.new(0, 0, 0) -- We set it to black
+        col2 = color.new(0, 0, 0, 0) -- We set it to black
     end
 
     if mode == "l" then -- Regular Mode (__ALEFT)

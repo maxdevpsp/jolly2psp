@@ -27,6 +27,7 @@ while true do
 	-- White fade at the start
 	fadeWhite:blit(0, 0, whiteT)
 	fadeBlack:blit(0, 0, blackT)
+	sol.print("c", 0, 131, lang.howToPlay[1], 1.4, color.new(255, 255, 255, blackT))
 	if whiteT > 0 then
 		whiteT -= 10
 	end
